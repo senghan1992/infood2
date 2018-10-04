@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -32,7 +33,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import infofood.senghan1992.com.infofood.R;
+import infofood.senghan1992.com.infofood.utils.NetRetrofit;
 import infofood.senghan1992.com.infofood.vo.TipVO;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Content_tip_activity extends AppCompatActivity {
 
@@ -164,7 +170,8 @@ public class Content_tip_activity extends AppCompatActivity {
                         }
                     }//for
 
-                    Toast.makeText(getApplicationContext(),contentInfo.size()+"",Toast.LENGTH_SHORT).show();
+                    //contentInfo 에 넣어놓은 정보들을 retrofit2로 보낸
+                    new Task().execute();
 
                 }//if(isTrue)
             }
@@ -172,6 +179,32 @@ public class Content_tip_activity extends AppCompatActivity {
 
 
     }//onCreate()
+
+    private String upload_content_tip(){
+        Call<ResponseBody> res = NetRetrofit.getInstance()
+                .getService().upload_content(contentInfo);
+        res.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+        return "";
+    }//server 와 connect 하는 부분
+
+    private class Task extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            upload_content_tip();
+            return null;
+        }
+    }
 
     //+버튼 클릭되는 경우
     View.OnClickListener clickNext = new View.OnClickListener() {

@@ -2,6 +2,9 @@ package infofood.senghan1992.com.infofood.utils;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+
+import infofood.senghan1992.com.infofood.vo.TipVO;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,7 +29,7 @@ public interface RetrofitService {
 
     @POST("upload_content")
     Call<ResponseBody> upload_content(
-
+        @Query("content_tip")ArrayList<TipVO> tip_list
     );
 
 
