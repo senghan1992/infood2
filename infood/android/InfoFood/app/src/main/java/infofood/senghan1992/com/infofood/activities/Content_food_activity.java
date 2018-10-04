@@ -285,7 +285,7 @@ public class Content_food_activity extends AppCompatActivity {
                 finish();
                 homeActivity.finish();
 
-                Log.d("파일업로드시 돌아오는 값",response.body().toString());
+                //Log.d("파일업로드시 돌아오는 값",response.body().toString());
 
                 asyncDialog.dismiss();
                 Toast.makeText(getApplicationContext(),"업로드 성공"
