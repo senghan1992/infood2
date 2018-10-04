@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import infofood.senghan1992.com.infofood.R;
 import infofood.senghan1992.com.infofood.utils.NetRetrofit;
@@ -65,6 +67,7 @@ public class Content_tip_activity extends AppCompatActivity {
     Uri photoURI;
     ArrayList<TipVO> contentInfo;
     TipVO vo;
+    Map<String, Object> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,9 +172,14 @@ public class Content_tip_activity extends AppCompatActivity {
                             contentInfo.add(vo);
                         }
                     }//for
-
+                    map = new HashMap<>();
+                    for (int i=0;i<contentInfo.size();i++){
+                        map.put("content"+(i+1),contentInfo.get(i).getContent());
+                        map.put("uri"+(i+1),contentInfo.get(i).getPhotoUri());
+                        map.put("imagePath"+(i+1),contentInfo.get(i).getImagePath());
+                    }
                     //contentInfo 에 넣어놓은 정보들을 retrofit2로 보낸
-                    new Task().execute();
+                    new Task().execute(new String("hello"));
 
                 }//if(isTrue)
             }
@@ -180,9 +188,9 @@ public class Content_tip_activity extends AppCompatActivity {
 
     }//onCreate()
 
-    private String upload_content_tip(){
+    private String upload_content_tip(String title){
         Call<ResponseBody> res = NetRetrofit.getInstance()
-                .getService().upload_content(contentInfo);
+                .getService().upload_content(map, title);
         res.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -201,7 +209,7 @@ public class Content_tip_activity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            upload_content_tip();
+            upload_content_tip(strings[0]);
             return null;
         }
     }

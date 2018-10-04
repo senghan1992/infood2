@@ -173,7 +173,10 @@ public class Infood_Mobile_Controller {
 	
 	@RequestMapping("/mobile/upload_tip")
 	@ResponseBody
-	public String upload_content_tip() {
+	public String upload_content_tip(MultipartHttpServletRequest request) {
+		Map map = new HashMap<String, Object>();
+		map.put("request", request);
+		ArrayList list = new ArrayList();
 		
 		return "";
 	}
