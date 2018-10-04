@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -163,7 +164,7 @@ public class Content_tip_activity extends AppCompatActivity {
                         }
                     }//for
 
-
+                    Toast.makeText(getApplicationContext(),contentInfo.size()+"",Toast.LENGTH_SHORT).show();
 
                 }//if(isTrue)
             }
@@ -361,5 +362,20 @@ public class Content_tip_activity extends AppCompatActivity {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }//getImageUri
+
+    public String getRealPathFromURI(Uri contentUri) {
+
+        String[] proj = { MediaStore.Images.Media.DATA };
+
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        cursor.moveToNext();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA));
+        Uri uri = Uri.fromFile(new File(path));
+
+        Log.d("Content_tip_activity", "getRealPathFromURI(), path : " + uri.toString());
+
+        cursor.close();
+        return path;
+    }
 
 }

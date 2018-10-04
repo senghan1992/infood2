@@ -156,6 +156,8 @@ public class InfoodServiceImpl implements InfoodService {
 		
 		int result = dao.upload_content_food(userIdx, user_nikname, saveFileName, subway, food, content);
 		
+		System.out.println(savePath);
+		
 		return result;
 	}
 

@@ -24,5 +24,10 @@ public interface RetrofitService {
                                    @Query("user_nikname")String user_nikname,
                                    @Part MultipartBody.Part file);
 
+    @POST("upload_content")
+    Call<ResponseBody> upload_content(
+
+    );
+
 
 }
