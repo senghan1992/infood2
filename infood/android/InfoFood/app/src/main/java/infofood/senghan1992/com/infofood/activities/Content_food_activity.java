@@ -252,7 +252,6 @@ public class Content_food_activity extends AppCompatActivity {
         subway = upload_subway.getText().toString();
         content = upload_content.getText().toString();
         food = upload_food.getText().toString();
-
         if (subway.length() <= 0) {
             Toast.makeText(getApplicationContext(), "지하철역을 입력해주세요", Toast.LENGTH_SHORT).show();
         } else if (content.length() <= 0) {

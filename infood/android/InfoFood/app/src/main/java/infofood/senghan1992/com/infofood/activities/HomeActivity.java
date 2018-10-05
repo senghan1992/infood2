@@ -61,16 +61,16 @@ public class HomeActivity extends FragmentActivity {
 
         //메뉴
         menu_layout = findViewById(R.id.menu_layout);
-        menu_content_tip = findViewById(R.id.menu_content_tip);
+        //menu_content_tip = findViewById(R.id.menu_content_tip);
         menu_content_food = findViewById(R.id.menu_content_food);
 
-        menu_content_tip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,Content_tip_activity.class);
-                startActivity(intent);
-            }
-        });
+//        menu_content_tip.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HomeActivity.this,Content_tip_activity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         menu_content_food.setOnClickListener(new View.OnClickListener() {
             @Override
