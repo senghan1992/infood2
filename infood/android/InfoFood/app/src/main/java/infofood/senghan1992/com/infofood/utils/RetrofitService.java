@@ -11,6 +11,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -30,10 +31,12 @@ public interface RetrofitService {
                                    @Query("user_nikname")String user_nikname,
                                    @Part MultipartBody.Part file);
 
-    @Multipart
-    @POST("upload_content")
+    //@Multipart
+    @FormUrlEncoded
+    @POST("upload_tip")
     Call<ResponseBody> upload_content(
-            @FieldMap Map<String, Object> tip_list,
+            @FieldMap Map<String, MultipartBody.Part> tip_list,
+            @FieldMap Map<String, String> tip_content_list,
             @Query("title")String title
     );
 

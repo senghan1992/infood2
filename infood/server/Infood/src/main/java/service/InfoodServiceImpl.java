@@ -161,4 +161,27 @@ public class InfoodServiceImpl implements InfoodService {
 		return result;
 	}
 
+	@Override
+	public int upload_content_tip(Map<String, Object> map) {
+		String webPath = "/resources/upload/tip/";
+		String savePath = application.getRealPath(webPath);
+		int max = 10 * 1024 * 1024;
+		boolean isSuccess = false;
+		String saveFileName = "";
+		
+		File dir = new File(savePath);
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		Map<String, Object>map_file = request.getParameterMap();
+		Map<String, String>map_content = request.getParameterMap();
+		
+		System.out.println(map_file.size()+"");
+		System.out.println(map_content.size()+"");
+		
+		return 0;
+	}
+
 }

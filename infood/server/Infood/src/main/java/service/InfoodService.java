@@ -28,5 +28,8 @@ public interface InfoodService {
 	public List<StationVO> station(String station);
 	
 	//음식 업로드
-	public int upload_content_food(Map<String,Object>map);
+	public int upload_content_food(Map<String,Object> map);
+	
+	//팁 업로드
+	public int upload_content_tip(Map<String,Object> map);
 }

@@ -37,6 +37,9 @@ import java.util.Map;
 import infofood.senghan1992.com.infofood.R;
 import infofood.senghan1992.com.infofood.utils.NetRetrofit;
 import infofood.senghan1992.com.infofood.vo.TipVO;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,7 +70,8 @@ public class Content_tip_activity extends AppCompatActivity {
     Uri photoURI;
     ArrayList<TipVO> contentInfo;
     TipVO vo;
-    Map<String, Object> map;
+    Map<String, MultipartBody.Part> map;
+    Map<String, String> map2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,15 +172,21 @@ public class Content_tip_activity extends AppCompatActivity {
                             String content = contents[i].getText().toString().trim();
                             vo = new TipVO();
                             vo.setPhotoUri(getImageUri(Content_tip_activity.this,bitmap));
+                            vo.setImagePath(getRealPathFromURI(vo.getPhotoUri()));
                             vo.setContent(content);
                             contentInfo.add(vo);
                         }
                     }//for
                     map = new HashMap<>();
+                    map2 = new HashMap<>();
                     for (int i=0;i<contentInfo.size();i++){
-                        map.put("content"+(i+1),contentInfo.get(i).getContent());
-                        map.put("uri"+(i+1),contentInfo.get(i).getPhotoUri());
-                        map.put("imagePath"+(i+1),contentInfo.get(i).getImagePath());
+                        File file = new File(contentInfo.get(i).getImagePath());
+                        RequestBody requestFile = RequestBody.create(MediaType.parse
+                                (getContentResolver().getType(contentInfo.get(i).getPhotoUri())),file);
+                        MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
+                        map.put("file"+(i+1),multipartBody);
+                        map2.put("content"+(i+1),contentInfo.get(i).getContent());
+
                     }
                     //contentInfo 에 넣어놓은 정보들을 retrofit2로 보낸
                     new Task().execute(new String("hello"));
@@ -185,12 +195,11 @@ public class Content_tip_activity extends AppCompatActivity {
             }
         });
 
-
     }//onCreate()
 
     private String upload_content_tip(String title){
         Call<ResponseBody> res = NetRetrofit.getInstance()
-                .getService().upload_content(map, title);
+                .getService().upload_content(map, map2, title);
         res.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
