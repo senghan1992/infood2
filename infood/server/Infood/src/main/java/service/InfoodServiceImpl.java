@@ -169,17 +169,39 @@ public class InfoodServiceImpl implements InfoodService {
 		boolean isSuccess = false;
 		String saveFileName = "";
 		
+		//저장하는 파일 이름들 저장할 ArrayList
+		List<String> image_list = new ArrayList<String>();
+		
 		File dir = new File(savePath);
 		if (!dir.isDirectory()) {
 			dir.mkdirs();
 		}
 		
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		Map<String, Object>map_file = request.getParameterMap();
-		Map<String, String>map_content = request.getParameterMap();
+		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
+		List<MultipartFile> images = request.getFiles("file");
+		Object[] contents = request.getParameterValues("contents_list");
+		String title = request.getParameter("title");
+		String user_nikname = request.getParameter("user_nikname");
 		
-		System.out.println(map_file.size()+"");
-		System.out.println(map_content.size()+"");
+		for(MultipartFile tmp : images) {
+			String originalFileName = tmp.getOriginalFilename();
+			saveFileName = originalFileName;
+			image_list.add(saveFileName);
+			try {
+				tmp.transferTo(new File(savePath + saveFileName));
+				isSuccess = true;
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+				isSuccess = false;
+			} catch (IOException e) {
+				e.printStackTrace();
+				isSuccess = false;
+			}
+		}
+		
+		if(isSuccess) {
+			int result = dao.upload_content_tip(image_list, contents, title, user_nikname);
+		}
 		
 		return 0;
 	}

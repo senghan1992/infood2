@@ -28,6 +28,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<!-- tip 정보 올리기(tip을 몇단계로 거쳤는지에 따라서 sql문을 다르게 입력해줘야 한다) -->
+	<!-- 1가지만 올릴경우 -->
+	<insert id="content_tip1" parameterType="java.util.HashMap">
+		insert into content_tip values(
+			0,
+			user_idx,
+			#{title},
+			#{content1},
+			'none',
+			'none',
+			'none',
+			'none',
+			#{content_image1},
+			'none',
+			'none',
+			'none',
+			'none',
+			current_timestamp
+		)
+	</insert>
+	
 </mapper>
 
 

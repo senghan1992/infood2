@@ -17,9 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
+import retrofit2.http.Multipart;
 import service.InfoodService;
 import vo.FoodVO;
 import vo.MemberVO;
@@ -173,10 +175,10 @@ public class Infood_Mobile_Controller {
 	
 	@RequestMapping("/mobile/upload_tip")
 	@ResponseBody
-	public String upload_content_tip(HttpServletRequest request) {
+	public String upload_content_tip(MultipartHttpServletRequest request) {
 		Map map = new HashMap<String, Object>();
 		map.put("request", request);
-		System.out.println((String)request.getParameterMap().get("content1"));
+		int result = service.upload_content_tip(map);
 		return "";
 	}
 

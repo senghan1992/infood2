@@ -11,11 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import infofood.senghan1992.com.infofood.R;
+import infofood.senghan1992.com.infofood.adapters.SearchFragmentAdapter;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -27,7 +30,10 @@ public class SearchFragment extends Fragment {
     Button search_btn;
     EditText search_edit;
 
+    //ListView Adapter
     ListView search_list;
+    ArrayList<String> list;
+    SearchFragmentAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,22 +61,23 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        search_edit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        search_edit.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                String search_voca = search_edit.getText().toString();
+//                Excel(search_voca);
+//            }
+//        });
 
         search_list = view.findViewById(R.id.search_list);
 
@@ -85,9 +92,10 @@ public class SearchFragment extends Fragment {
         return fragment;
     }
 
-    public void Excel(){
+    public void Excel(String search_voca){
         Workbook workbook = null;
         Sheet sheet = null;
+        list = new ArrayList<>();
         try {
             InputStream inputStream = getContext().getResources().getAssets().open("seoul_station.xlsx");
             workbook = Workbook.getWorkbook(inputStream);
@@ -95,7 +103,9 @@ public class SearchFragment extends Fragment {
             int MaxColumn = 2, RowStart = 1, RowEnd = sheet.getColumn(MaxColumn - 1).length -1, ColumnStart = 0, ColumnEnd = sheet.getRow(2).length - 1;
             for(int row = RowStart;row <= RowEnd;row++) {
                 String excelload = sheet.getCell(ColumnStart, row).getContents();
-                //arrayAdapter.add(excelload);
+                if (excelload.contains(search_voca)){
+                    list.add(excelload);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,6 +114,8 @@ public class SearchFragment extends Fragment {
         } finally {
             //가져온 결과를 ArrayList에 저장하여 Adapter 설정 해주기
             //search_list.setAdapter(arrayAdapter);
+            mAdapter = new SearchFragmentAdapter(getContext(),list);
+            search_list.setAdapter(mAdapter);
             workbook.close();
         }
     }

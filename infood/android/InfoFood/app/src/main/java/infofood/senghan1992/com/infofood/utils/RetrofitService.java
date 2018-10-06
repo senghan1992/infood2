@@ -3,6 +3,7 @@ package infofood.senghan1992.com.infofood.utils;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import infofood.senghan1992.com.infofood.vo.TipVO;
@@ -31,13 +32,13 @@ public interface RetrofitService {
                                    @Query("user_nikname")String user_nikname,
                                    @Part MultipartBody.Part file);
 
-    //@Multipart
-    @FormUrlEncoded
+    @Multipart
     @POST("upload_tip")
     Call<ResponseBody> upload_content(
-            @FieldMap Map<String, MultipartBody.Part> tip_list,
-            @FieldMap Map<String, String> tip_content_list,
-            @Query("title")String title
+            @Part List<MultipartBody.Part> images,
+            @Query("contents_list") Object[] tmp,
+            @Query("title")String title,
+            @Query("user_nikname")String user_nikname
     );
 
 

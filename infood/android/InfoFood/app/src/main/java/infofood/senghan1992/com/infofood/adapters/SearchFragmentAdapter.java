@@ -16,9 +16,9 @@ import infofood.senghan1992.com.infofood.vo.StationVO;
 public class SearchFragmentAdapter extends BaseAdapter {
 
     Context mContext;
-    ArrayList<StationVO> list;
+    ArrayList<String> list;
 
-    public SearchFragmentAdapter(Context mContext, ArrayList<StationVO> list) {
+    public SearchFragmentAdapter(Context mContext, ArrayList<String> list) {
         this.mContext = mContext;
         this.list = list;
     }
@@ -45,7 +45,7 @@ public class SearchFragmentAdapter extends BaseAdapter {
             view = LayoutInflater.from(mContext).inflate(R.layout.search_list_item, null);
 
             TextView search_list_item = view.findViewById(R.id.search_list_item);
-            search_list_item.setText(list.get(i).getStation_name());
+            search_list_item.setText(list.get(i));
         }
 
         return view;

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -69,14 +77,22 @@ public class Content_tip_activity extends AppCompatActivity {
     String imageFilePath;
     Uri photoURI;
     ArrayList<TipVO> contentInfo;
+    ArrayList<MultipartBody.Part> images;
+    Object[] contents_list;
     TipVO vo;
-    Map<String, MultipartBody.Part> map;
-    Map<String, String> map2;
+
+    //현재 접속한 유저의 정보를 가져온다ㅣ
+    SharedPreferences pref;
+    String user_nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_tip);
+
+        //현재 유저에 대한 정보
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        user_nickname = pref.getString("user_nikname","none");
 
         //사진들 및 팁에 대한 내용들 담을 리스트 초기화
         count = 0;
@@ -177,17 +193,19 @@ public class Content_tip_activity extends AppCompatActivity {
                             contentInfo.add(vo);
                         }
                     }//for
-                    map = new HashMap<>();
-                    map2 = new HashMap<>();
+                    images = new ArrayList<>();
+                    ArrayList<String> tmp_list = new ArrayList();
+
                     for (int i=0;i<contentInfo.size();i++){
                         File file = new File(contentInfo.get(i).getImagePath());
                         RequestBody requestFile = RequestBody.create(MediaType.parse
                                 (getContentResolver().getType(contentInfo.get(i).getPhotoUri())),file);
                         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
-                        map.put("file"+(i+1),multipartBody);
-                        map2.put("content"+(i+1),contentInfo.get(i).getContent());
-
+                        images.add(multipartBody);
+                        tmp_list.add(contentInfo.get(i).getContent());
                     }
+                    contents_list = new String[tmp_list.size()];
+                    contents_list = tmp_list.toArray();
                     //contentInfo 에 넣어놓은 정보들을 retrofit2로 보낸
                     new Task().execute(new String("hello"));
 
@@ -199,7 +217,7 @@ public class Content_tip_activity extends AppCompatActivity {
 
     private String upload_content_tip(String title){
         Call<ResponseBody> res = NetRetrofit.getInstance()
-                .getService().upload_content(map, map2, title);
+                .getService().upload_content(images,contents_list,title,user_nickname);
         res.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

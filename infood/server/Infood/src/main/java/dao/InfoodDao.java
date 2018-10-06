@@ -26,6 +26,10 @@ public interface InfoodDao {
 	//맛집 리스트 올리기
 	public int upload_content_food(int user_idx, String user_nikname, String filename, String subway, String food, String content);
 	
+	//tip 저장하기
+	public int upload_content_tip(List<String> image_list, Object[] contents, String title, String user_nikname);
+	
 	//실시간 지하철 역 검색
 	public List<StationVO> station(String station);
+	
 }

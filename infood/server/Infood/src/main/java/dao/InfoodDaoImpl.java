@@ -93,4 +93,24 @@ public class InfoodDaoImpl implements InfoodDao {
 		return result;
 	}
 
+	@Override
+	public int upload_content_tip(List<String> image_list, Object[] contents, String title, String user_nikname) {
+		int result = 0;
+		switch(image_list.size()) 
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		}
+		
+		return 0;
+	}
+
 }
