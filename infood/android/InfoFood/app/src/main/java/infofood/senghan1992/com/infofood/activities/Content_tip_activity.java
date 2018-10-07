@@ -1,6 +1,7 @@
 package infofood.senghan1992.com.infofood.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,6 +65,7 @@ public class Content_tip_activity extends AppCompatActivity {
     //ImageView[] tip_images;
     ImageView tip_img1, tip_img2, tip_img3, tip_img4, tip_img5, tip_test;
     EditText[] contents;
+    EditText tip_title;
 
     AlertDialog.Builder dialog;
 
@@ -85,6 +87,9 @@ public class Content_tip_activity extends AppCompatActivity {
     SharedPreferences pref;
     String user_nickname;
 
+    //로딩 다이얼로드
+    ProgressDialog asyncDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +104,9 @@ public class Content_tip_activity extends AppCompatActivity {
         contentInfo = new ArrayList<>();
 
         //검색
+
+        tip_title = findViewById(R.id.tip_title);
+
         //content 하나당 레이아웃
         layouts = new LinearLayout[5];
         layouts[0] = findViewById(R.id.tip_layout1);
@@ -166,50 +174,54 @@ public class Content_tip_activity extends AppCompatActivity {
         content_tip_upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isTrue = false;
-                for (int i = 0; i < 5; i++) {
-                    if (layouts[i].getVisibility() == View.VISIBLE) {
-                        Bitmap bitmap = ((BitmapDrawable) tip_images[i].getDrawable()).getBitmap();
-                        String content = contents[i].getText().toString().trim();
-                        if (bitmap == null || content.isEmpty()) {
-                            Toast.makeText(getApplicationContext(),
-                                    "이미지 혹은 내용을 입력해주세요", Toast.LENGTH_SHORT).show();
-                            isTrue = false;
-                            return;
-                        } else {
-                            isTrue = true;
-                        }
-                    }//if
-                }//for
-                if (isTrue) {
-                    for (int i=0;i<5;i++){
-                        if(layouts[i].getVisibility() == View.VISIBLE){
+                if (tip_title.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"제목을 입력해주세요",Toast.LENGTH_SHORT).show();
+                }else{
+                    boolean isTrue = false;
+                    for (int i = 0; i < 5; i++) {
+                        if (layouts[i].getVisibility() == View.VISIBLE) {
                             Bitmap bitmap = ((BitmapDrawable) tip_images[i].getDrawable()).getBitmap();
                             String content = contents[i].getText().toString().trim();
-                            vo = new TipVO();
-                            vo.setPhotoUri(getImageUri(Content_tip_activity.this,bitmap));
-                            vo.setImagePath(getRealPathFromURI(vo.getPhotoUri()));
-                            vo.setContent(content);
-                            contentInfo.add(vo);
-                        }
+                            if (bitmap == null || content.isEmpty()) {
+                                Toast.makeText(getApplicationContext(),
+                                        "이미지 혹은 내용을 입력해주세요", Toast.LENGTH_SHORT).show();
+                                isTrue = false;
+                                return;
+                            } else {
+                                isTrue = true;
+                            }
+                        }//if
                     }//for
-                    images = new ArrayList<>();
-                    ArrayList<String> tmp_list = new ArrayList();
+                    if (isTrue) {
+                        for (int i=0;i<5;i++){
+                            if(layouts[i].getVisibility() == View.VISIBLE){
+                                Bitmap bitmap = ((BitmapDrawable) tip_images[i].getDrawable()).getBitmap();
+                                String content = contents[i].getText().toString().trim();
+                                vo = new TipVO();
+                                vo.setPhotoUri(getImageUri(Content_tip_activity.this,bitmap));
+                                vo.setImagePath(getRealPathFromURI(vo.getPhotoUri()));
+                                vo.setContent(content);
+                                contentInfo.add(vo);
+                            }
+                        }//for
+                        images = new ArrayList<>();
+                        ArrayList<String> tmp_list = new ArrayList();
 
-                    for (int i=0;i<contentInfo.size();i++){
-                        File file = new File(contentInfo.get(i).getImagePath());
-                        RequestBody requestFile = RequestBody.create(MediaType.parse
-                                (getContentResolver().getType(contentInfo.get(i).getPhotoUri())),file);
-                        MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
-                        images.add(multipartBody);
-                        tmp_list.add(contentInfo.get(i).getContent());
-                    }
-                    contents_list = new String[tmp_list.size()];
-                    contents_list = tmp_list.toArray();
-                    //contentInfo 에 넣어놓은 정보들을 retrofit2로 보낸
-                    new Task().execute(new String("hello"));
+                        for (int i=0;i<contentInfo.size();i++){
+                            File file = new File(contentInfo.get(i).getImagePath());
+                            RequestBody requestFile = RequestBody.create(MediaType.parse
+                                    (getContentResolver().getType(contentInfo.get(i).getPhotoUri())),file);
+                            MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
+                            images.add(multipartBody);
+                            tmp_list.add(contentInfo.get(i).getContent());
+                        }
+                        contents_list = new String[tmp_list.size()];
+                        contents_list = tmp_list.toArray();
+                        //contentInfo 에 넣어놓은 정보들을 retrofit2로 보낸다
+                        new Task().execute(new String("hello"));
 
-                }//if(isTrue)
+                    }//if(isTrue)
+                }
             }
         });
 
@@ -221,18 +233,33 @@ public class Content_tip_activity extends AppCompatActivity {
         res.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+                HomeActivity homeActivity = (HomeActivity)HomeActivity.HomeActivity;
+                Intent intent = new Intent(Content_tip_activity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+                homeActivity.finish();
+
+                asyncDialog.dismiss();
+
+                Toast.makeText(getApplicationContext(),"업로드 성공!",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(),"업로드 실패",Toast.LENGTH_SHORT).show();
             }
         });
         return "";
     }//server 와 connect 하는 부분
 
     private class Task extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected void onPreExecute() {
+            asyncDialog = new ProgressDialog(Content_tip_activity.this);
+            asyncDialog.setMessage("loading");
+            asyncDialog.show();
+        }
 
         @Override
         protected String doInBackground(String... strings) {

@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="content_tip1" parameterType="java.util.HashMap">
 		insert into content_tip values(
 			0,
-			user_idx,
+			#{user_nikname},
 			#{title},
 			#{content1},
 			'none',
@@ -45,6 +45,82 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			'none',
 			'none',
 			'none',
+			current_timestamp
+		)
+	</insert>
+	<!-- 2가지만 올릴경우 -->
+	<insert id="content_tip2" parameterType="java.util.HashMap">
+		insert into content_tip values(
+			0,
+			#{user_nikname},
+			#{title},
+			#{content1},
+			#{content2},
+			'none',
+			'none',
+			'none',
+			#{content_image1},
+			#{content_image2},
+			'none',
+			'none',
+			'none',
+			current_timestamp
+		)
+	</insert>
+	<!-- 3가지만 올릴경우 -->
+	<insert id="content_tip3" parameterType="java.util.HashMap">
+		insert into content_tip values(
+			0,
+			#{user_nikname},
+			#{title},
+			#{content1},
+			#{content2},
+			#{content3},
+			'none',
+			'none',
+			#{content_image1},
+			#{content_image2},
+			#{content_image3},
+			'none',
+			'none',
+			current_timestamp
+		)
+	</insert>
+	<!-- 4가지만 올릴경우 -->
+	<insert id="content_tip4" parameterType="java.util.HashMap">
+		insert into content_tip values(
+			0,
+			#{user_nikname},
+			#{title},
+			#{content1},
+			#{content2},
+			#{content3},
+			#{content4},
+			'none',
+			#{content_image1},
+			#{content_image2},
+			#{content_image3},
+			#{content_image4},
+			'none',
+			current_timestamp
+		)
+	</insert>
+	<!-- 5가지  올릴경우 -->
+	<insert id="content_tip5" parameterType="java.util.HashMap">
+		insert into content_tip values(
+			0,
+			#{user_nikname},
+			#{title},
+			#{content1},
+			#{content2},
+			#{content3},
+			#{content4},
+			#{content5},
+			#{content_image1},
+			#{content_image2},
+			#{content_image3},
+			#{content_image4},
+			#{content_image5},
 			current_timestamp
 		)
 	</insert>

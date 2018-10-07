@@ -96,21 +96,72 @@ public class InfoodDaoImpl implements InfoodDao {
 	@Override
 	public int upload_content_tip(List<String> image_list, Object[] contents, String title, String user_nikname) {
 		int result = 0;
+		Map<String, Object> map; 
 		switch(image_list.size()) 
 		{
 		case 1:
+			map = new HashMap<String, Object>();
+			map.put("user_nikname", user_nikname);
+			map.put("title", title);
+			map.put("content1", contents[0]);
+			map.put("content_image1", image_list.get(0));
+			result = sqlSession.insert("content.content_tip1", map);
 			break;
 		case 2:
+			map = new HashMap<String, Object>();
+			map.put("user_nikname", user_nikname);
+			map.put("title", title);
+			map.put("content1", contents[0]);
+			map.put("content2", contents[1]);
+			map.put("content_image1", image_list.get(0));
+			map.put("content_image2", image_list.get(1));
+			result = sqlSession.insert("content.content_tip2", map);
 			break;
 		case 3:
+			map = new HashMap<String, Object>();
+			map.put("user_nikname", user_nikname);
+			map.put("title", title);
+			map.put("content1", contents[0]);
+			map.put("content2", contents[1]);
+			map.put("content3", contents[2]);
+			map.put("content_image1", image_list.get(0));
+			map.put("content_image2", image_list.get(1));
+			map.put("content_image3", image_list.get(2));
+			result = sqlSession.insert("content.content_tip3", map);
 			break;
 		case 4:
+			map = new HashMap<String, Object>();
+			map.put("user_nikname", user_nikname);
+			map.put("title", title);
+			map.put("content1", contents[0]);
+			map.put("content2", contents[1]);
+			map.put("content3", contents[2]);
+			map.put("content4", contents[3]);
+			map.put("content_image1", image_list.get(0));
+			map.put("content_image2", image_list.get(1));
+			map.put("content_image3", image_list.get(2));
+			map.put("content_image4", image_list.get(3));
+			result = sqlSession.insert("content.content_tip4", map);
 			break;
 		case 5:
+			map = new HashMap<String, Object>();
+			map.put("user_nikname", user_nikname);
+			map.put("title", title);
+			map.put("content1", contents[0]);
+			map.put("content2", contents[1]);
+			map.put("content3", contents[2]);
+			map.put("content4", contents[3]);
+			map.put("content5", contents[4]);
+			map.put("content_image1", image_list.get(0));
+			map.put("content_image2", image_list.get(1));
+			map.put("content_image3", image_list.get(2));
+			map.put("content_image4", image_list.get(3));
+			map.put("content_image5", image_list.get(4));
+			result = sqlSession.insert("content.content_tip5", map);
 			break;
 		}
 		
-		return 0;
+		return result;
 	}
 
 }

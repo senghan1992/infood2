@@ -179,6 +179,14 @@ public class Infood_Mobile_Controller {
 		Map map = new HashMap<String, Object>();
 		map.put("request", request);
 		int result = service.upload_content_tip(map);
+		String resultStr = "";
+		
+		if (result == 1) {
+			resultStr = String.format("{res:[{'result':'%s'}]}", "success");
+		} else {
+			resultStr = String.format("{res:[{'result':'%s'}]}", "fail");
+		}
+		
 		return "";
 	}
 

@@ -4,15 +4,24 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 import infofood.senghan1992.com.infofood.R;
 
 public class RecipeFragment extends Fragment {
 
     int cnt;
+
+    ArrayList list;
+
+    RecyclerView recycler_view;
+    RecyclerView.Adapter mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

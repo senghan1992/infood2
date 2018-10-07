@@ -168,6 +168,7 @@ public class InfoodServiceImpl implements InfoodService {
 		int max = 10 * 1024 * 1024;
 		boolean isSuccess = false;
 		String saveFileName = "";
+		int result = 0;
 		
 		//저장하는 파일 이름들 저장할 ArrayList
 		List<String> image_list = new ArrayList<String>();
@@ -182,6 +183,7 @@ public class InfoodServiceImpl implements InfoodService {
 		Object[] contents = request.getParameterValues("contents_list");
 		String title = request.getParameter("title");
 		String user_nikname = request.getParameter("user_nikname");
+		user_nikname = user_nikname.replace("\"", "");
 		
 		for(MultipartFile tmp : images) {
 			String originalFileName = tmp.getOriginalFilename();
@@ -200,10 +202,10 @@ public class InfoodServiceImpl implements InfoodService {
 		}
 		
 		if(isSuccess) {
-			int result = dao.upload_content_tip(image_list, contents, title, user_nikname);
+			result = dao.upload_content_tip(image_list, contents, title, user_nikname);
 		}
 		
-		return 0;
+		return result;
 	}
 
 }
