@@ -12,6 +12,8 @@
 		<typeAlias type="vo.MemberVO" alias="memberVO"/>
 		<typeAlias type="vo.FoodVO" alias="foodVO"/>
 		<typeAlias type="vo.StationVO" alias="stationVO"/>
+		<typeAlias type="vo.content_tipVO" alias="content_tipVO"/>
+		
 	</typeAliases>
 	
 	<mappers>

@@ -1,5 +1,6 @@
 package infofood.senghan1992.com.infofood.utils;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ public interface RetrofitService {
             @Query("title")String title,
             @Query("user_nikname")String user_nikname
     );
+
+    @POST("home_tip")
+    Call<JsonArray> home_tip();
 
 
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import vo.FoodVO;
 import vo.MemberVO;
 import vo.StationVO;
+import vo.content_tipVO;
 
 public interface InfoodService {
 	//닉네임 중복체크
@@ -32,4 +33,7 @@ public interface InfoodService {
 	
 	//팁 업로드
 	public int upload_content_tip(Map<String,Object> map);
+	
+	//팁 목록
+	public List<content_tipVO> tip_list();
 }

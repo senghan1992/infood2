@@ -26,6 +26,7 @@ import service.InfoodService;
 import vo.FoodVO;
 import vo.MemberVO;
 import vo.StationVO;
+import vo.content_tipVO;
 
 @Controller
 public class Infood_Mobile_Controller {
@@ -133,6 +134,36 @@ public class Infood_Mobile_Controller {
 
 		return food_list_json.toString();
 	}
+	
+	@RequestMapping("/mobile/home_tip")
+	@ResponseBody
+	public String home_tip() {
+		List<content_tipVO> tip_list = service.tip_list();
+		
+		JSONArray tip_list_json = new JSONArray();
+		for(content_tipVO vo : tip_list) {
+			JSONObject object = new JSONObject();
+			object.put("idx", vo.getIdx());
+			object.put("user_nikname", vo.getUser_nikname());
+			object.put("title", vo.getTitle());
+			object.put("content1", vo.getContent1());
+			object.put("content2", vo.getContent2());
+			object.put("content3", vo.getContent3());
+			object.put("content4", vo.getContent4());
+			object.put("content5", vo.getContent5());
+			object.put("content_image1", vo.getContent_image1());
+			object.put("content_image2", vo.getContent_image2());
+			object.put("content_image3", vo.getContent_image3());
+			object.put("content_image4", vo.getContent_image4());
+			object.put("content_image5", vo.getContent_image5());
+			object.put("regidate", vo.getRegidate());
+			tip_list_json.add(object);
+		}
+		
+		//System.out.println(tip_list.size());
+		
+		return tip_list_json.toString();
+	}
 
 	@RequestMapping(value="/mobile/station",produces="text/plain;charset=UTF-8")
 	@ResponseBody
@@ -189,5 +220,6 @@ public class Infood_Mobile_Controller {
 		
 		return "";
 	}
+	
 
 }

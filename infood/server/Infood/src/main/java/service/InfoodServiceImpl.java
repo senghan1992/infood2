@@ -23,6 +23,7 @@ import utill.PwdSecurity;
 import vo.FoodVO;
 import vo.MemberVO;
 import vo.StationVO;
+import vo.content_tipVO;
 
 @Service
 public class InfoodServiceImpl implements InfoodService {
@@ -206,6 +207,12 @@ public class InfoodServiceImpl implements InfoodService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<content_tipVO> tip_list() {
+		List<content_tipVO> list = dao.tip_list();
+		return list;
 	}
 
 }

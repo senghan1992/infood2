@@ -6,6 +6,7 @@ import java.util.List;
 import vo.FoodVO;
 import vo.MemberVO;
 import vo.StationVO;
+import vo.content_tipVO;
 
 public interface InfoodDao {
 	//닉네임 중복체크
@@ -28,6 +29,9 @@ public interface InfoodDao {
 	
 	//tip 저장하기
 	public int upload_content_tip(List<String> image_list, Object[] contents, String title, String user_nikname);
+	
+	//tip 가져오기
+	public List<content_tipVO> tip_list();
 	
 	//실시간 지하철 역 검색
 	public List<StationVO> station(String station);

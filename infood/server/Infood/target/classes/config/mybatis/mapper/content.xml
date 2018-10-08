@@ -9,6 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from content_food
 	</select>
 	
+	<!-- 팁화면 리스트 -->
+	<select id="tip_list" resultType="content_tipVO">
+		select * from content_tip
+	</select>
+	
 	<!-- 실시간 지하철역 검색 -->
 	<select id="station" parameterType="String" resultType="stationVO">
 		select * from train_station where station_name like CONCAT(#{station},'%')

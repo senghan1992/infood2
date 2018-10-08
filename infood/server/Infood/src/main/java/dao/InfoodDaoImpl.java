@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import vo.FoodVO;
 import vo.MemberVO;
 import vo.StationVO;
+import vo.content_tipVO;
 
 @Repository
 public class InfoodDaoImpl implements InfoodDao {
@@ -162,6 +163,12 @@ public class InfoodDaoImpl implements InfoodDao {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<content_tipVO> tip_list() {
+		List<content_tipVO> list = sqlSession.selectList("content.tip_list");
+		return list;
 	}
 
 }
