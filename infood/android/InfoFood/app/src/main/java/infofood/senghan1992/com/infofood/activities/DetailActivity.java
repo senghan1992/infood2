@@ -2,6 +2,7 @@ package infofood.senghan1992.com.infofood.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ public class DetailActivity extends AppCompatActivity {
     ImageView detail_image;
     String nikname, regidate, subway, image, content;
     int user_idx;
+
+    GridView detail_gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class DetailActivity extends AppCompatActivity {
         detail_subway = findViewById(R.id.detail_subway);
         detail_image = findViewById(R.id.detail_image);
         detail_content = findViewById(R.id.detail_content);
+
+        detail_gridView = findViewById(R.id.detail_gridView);
 
         detail_nikname.setText(nikname);
         detail_regidate.setText(regidate.substring(0,10));

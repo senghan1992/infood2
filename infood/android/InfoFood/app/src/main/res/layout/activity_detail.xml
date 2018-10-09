@@ -50,12 +50,12 @@
                     android:text="업로드시간"
                     android:textSize="20dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text=":" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text=":" />-->
 
             </LinearLayout>
 
@@ -104,6 +104,18 @@
                 android:text="나의 내용"
                 android:textColor="#fff"
                 android:textSize="18dp" />
+
+            <GridView
+                android:id="@+id/detail_gridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnWidth="90dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                ></GridView>
 
         </LinearLayout>
 
