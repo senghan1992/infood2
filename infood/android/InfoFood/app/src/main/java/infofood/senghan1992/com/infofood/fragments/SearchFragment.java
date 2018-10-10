@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -59,18 +60,29 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        search_btn = view.findViewById(R.id.search_btn);
         search_edit = view.findViewById(R.id.search_edit);
 
-        search_btn.setOnClickListener(new View.OnClickListener() {
+        search_edit.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                String search = search_edit.getText().toString();
-                bundle.putString("search_term",search);
-                /*Intent i = new Intent(getContext(),Search_resActivity.class);
-                i.putExtras(bundle);
-                startActivity(i);*/
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (search_edit.getRight() - search_edit.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        String search_string = search_edit.getText().toString().trim();
+                        //검색어를 가지고 db에서 해당하는 정보를 가져오는 것을 해야한다
+
+                        //그리고 검색후 페이지로 이동
+                        /////////////////////////////////////////////////
+
+                        return true;
+                    }
+                }
+                return false;
             }
         });
 
@@ -101,16 +113,15 @@ public class SearchFragment extends Fragment {
                 for(int i=0;i<array.size();i++){
                     JsonObject object = (JsonObject) array.get(i);
                     StationVO vo = new StationVO();
-                    vo.setStation_code(object.get("station_code").toString());
-                    vo.setStation_name(object.get("station_name").toString());
-                    vo.setStation_number(object.get("station_number").toString());
-                    vo.setStation_out_code(object.get("station_out_code").toString());
+                    String station_name = object.get("station_name").toString();
+                    station_name = station_name.replace("\"", "");
+                    vo.setStation_name(station_name);
                     list.add(vo.getStation_name());
                 }
                 Log.i("검색화면 넘어오는 리스트 추가 갯수" , list.size()+"");
-                Toast.makeText(getContext(),list.size()+"",Toast.LENGTH_SHORT).show();
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                         android.R.layout.simple_dropdown_item_1line, list);
+                search_edit.setThreshold(1);
                 search_edit.setAdapter(adapter);
             }
 
