@@ -75,8 +75,8 @@ public class InfoodDaoImpl implements InfoodDao {
 	}
 
 	@Override
-	public List<StationVO> station(String station) {
-		List<StationVO> list = sqlSession.selectList("content.station",station);
+	public List<StationVO> station() {
+		List<StationVO> list = sqlSession.selectList("content.station");
 		return list;
 	}
 

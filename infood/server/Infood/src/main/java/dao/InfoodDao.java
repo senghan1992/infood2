@@ -34,6 +34,6 @@ public interface InfoodDao {
 	public List<content_tipVO> tip_list();
 	
 	//실시간 지하철 역 검색
-	public List<StationVO> station(String station);
+	public List<StationVO> station();
 	
 }

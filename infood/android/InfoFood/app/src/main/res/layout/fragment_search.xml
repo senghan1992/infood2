@@ -19,14 +19,17 @@
             android:layout_marginTop="205dp"
             android:background="@mipmap/search_btn" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/search_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="200dp"
             android:background="@mipmap/search"
-            android:paddingStart="15dp" />
+            android:paddingStart="15dp"
+            android:completionHint="검색어를 입력하세요"
+            android:completionThreshold="1"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -35,13 +38,6 @@
             android:layout_marginTop="250dp"
             android:text="태그 혹은 지하철역으로 검색해주세요^^\nex)#파스타, 홍대입구역, 신촌역"
             android:textSize="17dp" />
-
-        <ListView
-            android:id="@+id/search_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="310dp"
-            android:scrollbars="vertical"/>
 
     </FrameLayout>
 

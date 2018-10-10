@@ -169,8 +169,8 @@ public class Infood_Mobile_Controller {
 	@ResponseBody
 	public String station(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("utf-8");
-		String station = request.getParameter("station");
-		List<StationVO> list = service.station(station);
+		
+		List<StationVO> list = service.station();
 		if (list.size() <= 0 || list == null) {
 			return "";
 		} else {
@@ -179,11 +179,12 @@ public class Infood_Mobile_Controller {
 				JSONObject obj = new JSONObject();
 				obj.put("station_code", vo.getStation_code());
 				obj.put("station_name", vo.getStation_name());
-				obj.put("station_line", vo.getStation_line());
+				obj.put("station_number", vo.getStation_number());
 				obj.put("station_out_code", vo.getStation_out_code());
 				jsonList.add(obj);
 			}
-			return jsonList.toJSONString();
+			System.out.println(jsonList.size()+"");
+			return jsonList.toString();
 		}
 	}
 	

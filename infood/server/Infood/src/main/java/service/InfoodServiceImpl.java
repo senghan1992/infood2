@@ -106,8 +106,8 @@ public class InfoodServiceImpl implements InfoodService {
 	}
 
 	@Override
-	public List<StationVO> station(String station) {
-		List<StationVO> list = dao.station(station);
+	public List<StationVO> station() {
+		List<StationVO> list = dao.station();
 		return list;
 	}
 

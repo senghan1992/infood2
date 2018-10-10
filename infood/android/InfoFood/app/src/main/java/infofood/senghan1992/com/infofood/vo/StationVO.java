@@ -1,7 +1,7 @@
 package infofood.senghan1992.com.infofood.vo;
 
 public class StationVO {
-    private String station_code, station_name, station_line, station_out_code;
+    private String station_code, station_name, station_number, station_out_code;
 
     public String getStation_code() {
         return station_code;
@@ -19,12 +19,12 @@ public class StationVO {
         this.station_name = station_name;
     }
 
-    public String getStation_line() {
-        return station_line;
+    public String getStation_number() {
+        return station_number;
     }
 
-    public void setStation_line(String station_line) {
-        this.station_line = station_line;
+    public void setStation_number(String station_line) {
+        this.station_number = station_line;
     }
 
     public String getStation_out_code() {

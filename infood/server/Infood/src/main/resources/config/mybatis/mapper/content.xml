@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 실시간 지하철역 검색 -->
 	<select id="station" parameterType="String" resultType="stationVO">
-		select * from train_station where station_name like CONCAT(#{station},'%')
+		select * from station
 	</select>
 	
 	<!-- 음식 정보 올리기 -->

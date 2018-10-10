@@ -45,5 +45,8 @@ public interface RetrofitService {
     @POST("home_tip")
     Call<JsonArray> home_tip();
 
+    @POST("station")
+    Call<JsonArray> station();
+
 
 }

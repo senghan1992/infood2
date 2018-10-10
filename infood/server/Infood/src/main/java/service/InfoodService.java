@@ -26,7 +26,7 @@ public interface InfoodService {
 	public List<FoodVO> food_list();
 	
 	//실시간 지하철역 검색
-	public List<StationVO> station(String station);
+	public List<StationVO> station();
 	
 	//음식 업로드
 	public int upload_content_food(Map<String,Object> map);
