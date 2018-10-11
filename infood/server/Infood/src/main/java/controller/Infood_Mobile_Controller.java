@@ -53,8 +53,9 @@ public class Infood_Mobile_Controller {
 			if (vo == null) {
 				resultStr = String.format("{res:[{'result':'%s'}]}", "fail");
 			} else {
-				resultStr = String.format("{res:[{'result':'%s'," + "'last_login':'%s',"+"'nikname':'%s',"+"'user_idx':'%s'}]}", "success",
-						vo.getLast_login(), vo.getNikname(), vo.getIdx()+"");
+				resultStr = String.format(
+						"{res:[{'result':'%s'," + "'last_login':'%s'," + "'nikname':'%s'," + "'user_idx':'%s'}]}",
+						"success", vo.getLast_login(), vo.getNikname(), vo.getIdx() + "");
 				int result = service.last_login(map);
 			}
 		}
@@ -134,14 +135,14 @@ public class Infood_Mobile_Controller {
 
 		return food_list_json.toString();
 	}
-	
+
 	@RequestMapping("/mobile/home_tip")
 	@ResponseBody
 	public String home_tip() {
 		List<content_tipVO> tip_list = service.tip_list();
-		
+
 		JSONArray tip_list_json = new JSONArray();
-		for(content_tipVO vo : tip_list) {
+		for (content_tipVO vo : tip_list) {
 			JSONObject object = new JSONObject();
 			object.put("idx", vo.getIdx());
 			object.put("user_nikname", vo.getUser_nikname());
@@ -159,17 +160,17 @@ public class Infood_Mobile_Controller {
 			object.put("regidate", vo.getRegidate());
 			tip_list_json.add(object);
 		}
-		
-		//System.out.println(tip_list.size());
-		
+
+		// System.out.println(tip_list.size());
+
 		return tip_list_json.toString();
 	}
 
-	@RequestMapping(value="/mobile/station",produces="text/plain;charset=UTF-8")
+	@RequestMapping(value = "/mobile/station", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String station(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("utf-8");
-		
+
 		List<StationVO> list = service.station();
 		if (list.size() <= 0 || list == null) {
 			return "";
@@ -183,14 +184,14 @@ public class Infood_Mobile_Controller {
 				obj.put("station_out_code", vo.getStation_out_code());
 				jsonList.add(obj);
 			}
-			System.out.println(jsonList.size()+"");
+			System.out.println(jsonList.size() + "");
 			return jsonList.toString();
 		}
 	}
-	
+
 	@RequestMapping("/mobile/upload_food")
 	@ResponseBody
-	public String upload_content_food(MultipartHttpServletRequest request){
+	public String upload_content_food(MultipartHttpServletRequest request) {
 		Map map = new HashMap<String, Object>();
 		map.put("request", request);
 		int result = service.upload_content_food(map);
@@ -204,7 +205,7 @@ public class Infood_Mobile_Controller {
 
 		return resultStr;
 	}
-	
+
 	@RequestMapping("/mobile/upload_tip")
 	@ResponseBody
 	public String upload_content_tip(MultipartHttpServletRequest request) {
@@ -212,15 +213,38 @@ public class Infood_Mobile_Controller {
 		map.put("request", request);
 		int result = service.upload_content_tip(map);
 		String resultStr = "";
-		
+
 		if (result == 1) {
 			resultStr = String.format("{res:[{'result':'%s'}]}", "success");
 		} else {
 			resultStr = String.format("{res:[{'result':'%s'}]}", "fail");
 		}
-		
+
 		return "";
 	}
-	
+
+	@RequestMapping("/mobile/food_station")
+	@ResponseBody
+	public String food_station(HttpServletRequest request) {
+		Map map = new HashMap<String, Object>();
+		map.put("request", request);
+
+		List<FoodVO> list = service.food_station(map);
+		JSONArray array = new JSONArray();
+		for (FoodVO vo : list) {
+			JSONObject object = new JSONObject();
+			object.put("idx", vo.getIdx());
+			object.put("user_idx", vo.getUser_idx());
+			object.put("user_nikname", vo.getUser_nikname());
+			object.put("image", vo.getImage());
+			object.put("subway", vo.getSubway());
+			object.put("food", vo.getFood());
+			object.put("content", vo.getContent());
+			object.put("regidate", vo.getRegidate());
+			array.add(object);
+		}
+		return array.toJSONString();
+
+	}
 
 }

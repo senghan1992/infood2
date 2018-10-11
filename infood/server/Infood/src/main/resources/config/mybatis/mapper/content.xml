@@ -130,6 +130,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<!-- 지하철역 주변으로 음식점 정보 가져오 -->
+	<select id="food_station" resultType="foodVO" parameterType="String">
+		select * from content_food where subway like concat("%",#{subway},"%")
+	</select>
+	
 </mapper>
 
 

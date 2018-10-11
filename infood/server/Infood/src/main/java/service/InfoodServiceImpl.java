@@ -215,4 +215,12 @@ public class InfoodServiceImpl implements InfoodService {
 		return list;
 	}
 
+	@Override
+	public List<FoodVO> food_station(Map<String, Object> map) {
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String subway = request.getParameter("subway");
+		List<FoodVO> list = dao.food_station(subway);
+		return list;
+	}
+
 }

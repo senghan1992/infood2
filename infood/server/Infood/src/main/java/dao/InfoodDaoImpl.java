@@ -171,4 +171,10 @@ public class InfoodDaoImpl implements InfoodDao {
 		return list;
 	}
 
+	@Override
+	public List<FoodVO> food_station(String subway) {
+		List<FoodVO> list = sqlSession.selectList("content.food_station", subway);
+		return list;
+	}
+
 }

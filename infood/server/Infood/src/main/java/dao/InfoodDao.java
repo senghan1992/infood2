@@ -36,4 +36,7 @@ public interface InfoodDao {
 	//실시간 지하철 역 검색
 	public List<StationVO> station();
 	
+	//지하철역 주변으로 음식 정보 가져오기
+	public List<FoodVO> food_station(String subway);
+	
 }

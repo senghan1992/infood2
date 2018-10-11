@@ -36,4 +36,7 @@ public interface InfoodService {
 	
 	//팁 목록
 	public List<content_tipVO> tip_list();
+	
+	//음식 주변역으로 가져오기
+	public List<FoodVO> food_station(Map<String, Object> map);
 }
