@@ -228,7 +228,6 @@ public class Infood_Mobile_Controller {
 	public String food_station(HttpServletRequest request) {
 		Map map = new HashMap<String, Object>();
 		map.put("request", request);
-
 		List<FoodVO> list = service.food_station(map);
 		JSONArray array = new JSONArray();
 		for (FoodVO vo : list) {

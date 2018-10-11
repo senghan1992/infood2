@@ -56,5 +56,4 @@ public interface RetrofitService {
     @POST("food_station")
     Call<JsonArray> getFoodList_station(@Query("subway")String subway);
 
-
 }

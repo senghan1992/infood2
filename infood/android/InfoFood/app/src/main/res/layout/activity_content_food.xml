@@ -65,7 +65,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="음식"
+            android:text="음식점 이름"
             android:layout_marginTop="300dp"
             android:layout_marginLeft="20dp"/>
 

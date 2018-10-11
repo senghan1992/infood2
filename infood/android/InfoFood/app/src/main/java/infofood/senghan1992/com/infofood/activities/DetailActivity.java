@@ -4,9 +4,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
@@ -17,6 +20,7 @@ import java.util.List;
 
 import infofood.senghan1992.com.infofood.R;
 import infofood.senghan1992.com.infofood.ServerInfo.ServerInfo;
+import infofood.senghan1992.com.infofood.adapters.GridAdapter;
 import infofood.senghan1992.com.infofood.utils.NetRetrofit;
 import infofood.senghan1992.com.infofood.vo.FoodVO;
 import retrofit2.Call;
@@ -31,8 +35,8 @@ public class DetailActivity extends AppCompatActivity {
     int user_idx;
 
     GridView detail_gridView;
-
     ArrayList<FoodVO> list;
+    GridAdapter gridAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +111,15 @@ public class DetailActivity extends AppCompatActivity {
                     list.add(vo);
                 }
                 Log.d("디테일 화면 넘어오는 값 확인", list.get(0).getFood());
+                gridAdapter = new GridAdapter(DetailActivity.this, list);
+                detail_gridView.setAdapter(gridAdapter);
+                detail_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //밑에 그리드 뷰로 보이는 사진들 클릭시 일어나는 일들~~
+                        //Toast.makeText(getApplicationContext(),list.get(position).getFood(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
