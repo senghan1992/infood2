@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="태그 혹은 지하철역으로 검색해주세요^^\nex)#파스타, 홍대입구역, 신촌역"
+            android:text="지하철역으로 검색해주세요^^\nex)홍대입구역, 신촌역"
             android:textSize="17dp" />
 
     </LinearLayout>
