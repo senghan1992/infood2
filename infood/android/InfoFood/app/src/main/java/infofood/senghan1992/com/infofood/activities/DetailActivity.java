@@ -1,5 +1,6 @@
 package infofood.senghan1992.com.infofood.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -116,7 +117,19 @@ public class DetailActivity extends AppCompatActivity {
                 detail_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //밑에 그리드 뷰로 보이는 사진들 클릭시 일어나는 일들~~
+                        //밑에 그리드 뷰로 보이는 사진들 클릭시 일어나는 일들
+                        Intent intent = new Intent(DetailActivity.this, DetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("image",list.get(position).getImage());
+                        bundle.putString("subway",list.get(position).getSubway());
+                        bundle.putString("user_nikname",list.get(position).getUser_nikname());
+                        bundle.putString("regidate",list.get(position).getRegidate());
+                        bundle.putInt("user_idx",list.get(position).getUser_idx());
+                        bundle.putString("food",list.get(position).getFood());
+                        bundle.putString("content",list.get(position).getContent());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
                         //Toast.makeText(getApplicationContext(),list.get(position).getFood(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -137,5 +150,5 @@ public class DetailActivity extends AppCompatActivity {
             getFoodList();
             return null;
         }
-    }
+    }//Task()
 }
