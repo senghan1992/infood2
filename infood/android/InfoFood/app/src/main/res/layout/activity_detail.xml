@@ -125,6 +125,7 @@
                 android:stretchMode="columnWidth"
                 android:gravity="center"
                 android:padding="10dp"
+                android:scrollbars="vertical"
                 ></GridView>
 
             <Button
