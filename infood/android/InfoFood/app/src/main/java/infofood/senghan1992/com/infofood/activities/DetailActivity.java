@@ -1,28 +1,28 @@
 package infofood.senghan1992.com.infofood.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import infofood.senghan1992.com.infofood.R;
 import infofood.senghan1992.com.infofood.ServerInfo.ServerInfo;
 import infofood.senghan1992.com.infofood.adapters.GridAdapter;
 import infofood.senghan1992.com.infofood.utils.NetRetrofit;
+import infofood.senghan1992.com.infofood.view.ExpandableHeightGridView;
 import infofood.senghan1992.com.infofood.vo.FoodVO;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,10 +32,11 @@ public class DetailActivity extends AppCompatActivity {
 
     TextView detail_nikname, detail_regidate, detail_subway, detail_content, detail_around_txt;
     ImageView detail_image;
-    String nikname, regidate, subway, image, content;
+    String nikname, regidate, subway, image, content, food;
     int user_idx;
+    Button detail_naver_btn;
 
-    GridView detail_gridView;
+    ExpandableHeightGridView detail_gridView;
     ArrayList<FoodVO> list;
     GridAdapter gridAdapter;
 
@@ -47,6 +48,7 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
         nikname = bundle.getString("user_nikname");
+        food = bundle.getString("food");
         regidate = bundle.getString("regidate");
         subway = bundle.getString("subway");
         image = bundle.getString("image");
@@ -61,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         detail_content = findViewById(R.id.detail_content);
         detail_around_txt = findViewById(R.id.detail_around_txt);
         detail_gridView = findViewById(R.id.detail_gridView);
+        detail_naver_btn = findViewById(R.id.detail_naver_btn);
 
         detail_nikname.setText(nikname);
         detail_regidate.setText(regidate.substring(0,10));
@@ -68,6 +71,30 @@ public class DetailActivity extends AppCompatActivity {
         detail_content.setText(content);
         Glide.with(this).load(ServerInfo.SERVER_IP_PHOTO+image).into(detail_image);
         detail_around_txt.setText(subway + " " + detail_around_txt.getText().toString());
+
+        detail_naver_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PackageManager pm = getPackageManager();
+                try{
+
+                    String strAppPackage = "com.nhn.android.search";
+                    pm.getApplicationIcon(strAppPackage).getClass();
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse("naversearchapp://keywordsearch?mode=result&query="+subway+" "+food+"&version=10"));
+                    startActivity(intent);
+
+                }catch (Exception e){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setData(Uri.parse("http://m.search.naver.com/search.naver?query="+subway+" "+ food));
+                    startActivity(intent);
+                }
+            }
+        });
 
         list = new ArrayList<>();
         new Task().execute();
@@ -111,9 +138,10 @@ public class DetailActivity extends AppCompatActivity {
                     vo.setRegidate(regidate);
                     list.add(vo);
                 }
-                Log.d("디테일 화면 넘어오는 값 확인", list.get(0).getFood());
+                //Log.d("디테일 화면 넘어오는 값 확인", list.get(0).getFood());
                 gridAdapter = new GridAdapter(DetailActivity.this, list);
                 detail_gridView.setAdapter(gridAdapter);
+                detail_gridView.setExpanded(true);
                 detail_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

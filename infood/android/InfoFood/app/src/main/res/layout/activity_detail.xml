@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -114,10 +114,10 @@
                 android:padding="10dp"
                 android:text="근처 맛집"/>
 
-            <GridView
+            <infofood.senghan1992.com.infofood.view.ExpandableHeightGridView
                 android:id="@+id/detail_gridView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:columnWidth="90dp"
                 android:numColumns="auto_fit"
                 android:verticalSpacing="30dp"
@@ -125,14 +125,17 @@
                 android:stretchMode="columnWidth"
                 android:gravity="center"
                 android:padding="10dp"
-                android:scrollbars="vertical"
-                ></GridView>
+                android:isScrollContainer="false"
+                ></infofood.senghan1992.com.infofood.view.ExpandableHeightGridView>
 
             <Button
+                android:id="@+id/detail_naver_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#2FED28"
-                android:text="네이버로 검색하기"/>
+                android:background="#69c246"
+                android:text="네이버로 검색하기"
+                android:textSize="8pt"
+                android:textColor="#fff"/>
 
         </LinearLayout>
 

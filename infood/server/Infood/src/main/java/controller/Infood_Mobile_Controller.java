@@ -113,9 +113,10 @@ public class Infood_Mobile_Controller {
 		return resultStr;
 	}
 
-	@RequestMapping("/mobile/home")
+	@RequestMapping(value = "/mobile/home", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String home() {
+	public String home(HttpServletResponse response) {
+		response.setCharacterEncoding("utf-8");
 		List<FoodVO> food_list = service.food_list();
 
 		JSONArray food_list_json = new JSONArray();
@@ -136,9 +137,10 @@ public class Infood_Mobile_Controller {
 		return food_list_json.toString();
 	}
 
-	@RequestMapping("/mobile/home_tip")
+	@RequestMapping(value="/mobile/home_tip", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String home_tip() {
+	public String home_tip(HttpServletResponse response) {
+		response.setCharacterEncoding("utf-8");
 		List<content_tipVO> tip_list = service.tip_list();
 
 		JSONArray tip_list_json = new JSONArray();
@@ -223,7 +225,7 @@ public class Infood_Mobile_Controller {
 		return "";
 	}
 
-	@RequestMapping("/mobile/food_station")
+	@RequestMapping(value = "/mobile/food_station", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String food_station(HttpServletRequest request) {
 		Map map = new HashMap<String, Object>();
