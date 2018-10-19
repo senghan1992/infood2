@@ -3,8 +3,6 @@ package infofood.senghan1992.com.infofood.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,28 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import infofood.senghan1992.com.infofood.R;
-import infofood.senghan1992.com.infofood.adapters.SearchFragmentAdapter;
 import infofood.senghan1992.com.infofood.utils.NetRetrofit;
-import infofood.senghan1992.com.infofood.utils.RetrofitService;
 import infofood.senghan1992.com.infofood.vo.StationVO;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,10 +60,15 @@ public class SearchFragment extends Fragment {
                     if(event.getRawX() >= (search_edit.getRight() - search_edit.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         String search_string = search_edit.getText().toString().trim();
-                        //검색어를 가지고 db에서 해당하는 정보를 가져오는 것을 해야한다
+                        if (search_string == null || search_string.equals("")){
+                            Toast.makeText(getContext(),"검색어를 입력하세요",Toast.LENGTH_SHORT).show();
+                        }else{
+                            //검색어를 가지고 db에서 해당하는 정보를 가져오는 것을 해야한다
 
-                        //그리고 검색후 페이지로 이동
-                        /////////////////////////////////////////////////
+
+                            //그리고 검색후 페이지로 이동
+                            /////////////////////////////////////////////////
+                        }
 
                         return true;
                     }

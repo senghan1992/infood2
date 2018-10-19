@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import infofood.senghan1992.com.infofood.R;
 
@@ -65,7 +66,7 @@ public class SettingsFragment extends Fragment {
                     dialog1.setTitle("닉네임 변경").setMessage("변경할 닉네임을 입력하세요").setPositiveButton("변경", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                            Toast.makeText(getContext(),"test",Toast.LENGTH_SHORT).show();
                         }
                     }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
                         @Override

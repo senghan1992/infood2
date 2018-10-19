@@ -247,5 +247,13 @@ public class Infood_Mobile_Controller {
 		return array.toJSONString();
 
 	}
+	
+	@RequestMapping("/mobile/search")
+	@ResponseBody
+	public String search(HttpServletRequest request) {
+		Map map = new HashMap<String, Object>();
+		map.put("request", request);
+		return "";
+	}
 
 }
