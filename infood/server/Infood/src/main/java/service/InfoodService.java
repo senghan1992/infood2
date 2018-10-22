@@ -39,4 +39,7 @@ public interface InfoodService {
 	
 	//음식 주변역으로 가져오기
 	public List<FoodVO> food_station(Map<String, Object> map);
+	
+	//역 검색으로 정보 가져오기
+	public List<FoodVO> search(Map<String, Object> map);
 }

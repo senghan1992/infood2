@@ -1,5 +1,6 @@
 package infofood.senghan1992.com.infofood.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 
 import infofood.senghan1992.com.infofood.R;
+import infofood.senghan1992.com.infofood.activities.SearchMainActivity;
 import infofood.senghan1992.com.infofood.utils.NetRetrofit;
 import infofood.senghan1992.com.infofood.vo.StationVO;
 import retrofit2.Call;
@@ -64,8 +66,10 @@ public class SearchFragment extends Fragment {
                             Toast.makeText(getContext(),"검색어를 입력하세요",Toast.LENGTH_SHORT).show();
                         }else{
                             //검색어를 가지고 db에서 해당하는 정보를 가져오는 것을 해야한다
-
-
+                            //Toast.makeText(getContext(),search_string,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(),SearchMainActivity.class);
+                            intent.putExtra("station", search_string);
+                            startActivity(intent);
                             //그리고 검색후 페이지로 이동
                             /////////////////////////////////////////////////
                         }
@@ -83,6 +87,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    //역정보를 받아와서 자동완성을 할수있게 해준다
     class Task extends AsyncTask<String,Void,String>{
 
         @Override
@@ -94,7 +99,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void getStation(){
-
         Call<JsonArray> res = NetRetrofit.getInstance().getService().station();
         res.enqueue(new Callback<JsonArray>() {
             @Override

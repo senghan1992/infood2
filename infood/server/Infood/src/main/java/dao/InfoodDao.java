@@ -39,4 +39,7 @@ public interface InfoodDao {
 	//지하철역 주변으로 음식 정보 가져오기
 	public List<FoodVO> food_station(String subway);
 	
+	//지하철역 정보를 통해 가져오기
+	public List<FoodVO> search(String station);
+	
 }

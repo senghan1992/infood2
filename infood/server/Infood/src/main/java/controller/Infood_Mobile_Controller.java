@@ -248,12 +248,26 @@ public class Infood_Mobile_Controller {
 
 	}
 	
-	@RequestMapping("/mobile/search")
+	@RequestMapping(value = ("/mobile/search"), produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String search(HttpServletRequest request) {
 		Map map = new HashMap<String, Object>();
 		map.put("request", request);
-		return "";
+		List<FoodVO> list = service.search(map);
+		JSONArray array = new JSONArray();
+		for (FoodVO vo : list) {
+			JSONObject object = new JSONObject();
+			object.put("idx", vo.getIdx());
+			object.put("user_idx", vo.getUser_idx());
+			object.put("user_nikname", vo.getUser_nikname());
+			object.put("image", vo.getImage());
+			object.put("subway", vo.getSubway());
+			object.put("food", vo.getFood());
+			object.put("content", vo.getContent());
+			object.put("regidate", vo.getRegidate());
+			array.add(object);
+		}
+		return array.toJSONString();
 	}
 
 }

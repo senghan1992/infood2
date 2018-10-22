@@ -3,17 +3,11 @@ package infofood.senghan1992.com.infofood.utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import infofood.senghan1992.com.infofood.vo.TipVO;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -55,5 +49,9 @@ public interface RetrofitService {
     //subway를 parameter로 subway를 포함한 food 정보 다 가져오기
     @POST("food_station")
     Call<JsonArray> getFoodList_station(@Query("subway")String subway);
+
+    //검색어를 parameter로 보내서 해당역 맛집 정보 가져오기
+    @POST("search")
+    Call<JsonArray> search(@Query("station")String station);
 
 }

@@ -177,4 +177,10 @@ public class InfoodDaoImpl implements InfoodDao {
 		return list;
 	}
 
+	@Override
+	public List<FoodVO> search(String station) {
+		List<FoodVO> list = sqlSession.selectList("content.search", station);
+		return list;
+	}
+
 }
