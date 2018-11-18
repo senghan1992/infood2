@@ -60,6 +60,9 @@ public class InfoodServiceImpl implements InfoodService {
 		String pwd = request.getParameter("pwd");
 		String shaPwd = PwdSecurity.getSHA256(pwd);
 		
+		System.out.println(email);
+		System.out.println(pwd);
+		
 		MemberVO vo = dao.login(email, shaPwd);
 
 		return vo;

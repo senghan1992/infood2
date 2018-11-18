@@ -1,6 +1,7 @@
 package infofood.senghan1992.com.infofood.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +52,10 @@ public class SearchGridAdapter extends BaseAdapter {
             convertView.setLayoutParams(new GridView.LayoutParams(300,300));
             imageView = convertView.findViewById(R.id.grid_image_view);
             textView = convertView.findViewById(R.id.grid_text_view);
-            Glide.with(mContext).load(ServerInfo.SERVER_IP_PHOTO +
-                    list.get(position).getImage()).into(imageView);
             textView.setText(list.get(position).getFood());
+            Glide.with(mContext).load(ServerInfo.SERVER_IP_PHOTO + list.get(position).getImage()).into(imageView);
 
+            Log.d("그리드 어댑터 이미지 값", ServerInfo.SERVER_IP_PHOTO + list.get(position).getImage());
         }
         return convertView;
     }

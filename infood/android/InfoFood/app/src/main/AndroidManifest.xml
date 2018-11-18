@@ -31,7 +31,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.HomeActivity">
+
+        </activity>
         <activity android:name=".activities.Content_tip_activity" />
         <activity android:name=".activities.Content_food_activity" />
         <activity android:name=".activities.DetailActivity" />

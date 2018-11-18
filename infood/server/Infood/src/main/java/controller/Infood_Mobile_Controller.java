@@ -46,21 +46,27 @@ public class Infood_Mobile_Controller {
 		map.put("request", request);
 		MemberVO vo = service.user_check(map);
 		String resultStr = "";
+		JSONObject object = new JSONObject();
 		if (vo == null) {
 			resultStr = String.format("{res:[{'result':'%s'}]}", "none");
 		} else {
 			vo = service.login(map);
 			if (vo == null) {
 				resultStr = String.format("{res:[{'result':'%s'}]}", "fail");
+				object.put("result", "fail");
 			} else {
 				resultStr = String.format(
 						"{res:[{'result':'%s'," + "'last_login':'%s'," + "'nikname':'%s'," + "'user_idx':'%s'}]}",
 						"success", vo.getLast_login(), vo.getNikname(), vo.getIdx() + "");
+				object.put("result", "success");
+				object.put("last_login", vo.getLast_login());
+				object.put("nikname", vo.getNikname());
+				object.put("user_idx", vo.getIdx());
 				int result = service.last_login(map);
 			}
 		}
 
-		return resultStr;
+		return object.toString();
 	}
 
 	@RequestMapping("/mobile/nikname_check")
